@@ -430,9 +430,10 @@ function RecipesTab({ userRecipes, onDelete, onAdd, saving }) {
 }
 
 // ── Pantry Tab ────────────────────────────────────────────────────────────────
-function PantryGroup({ groupName, items, onToggle, onAdd, onRemove }) {
+function PantryGroup({ groupName, items, onToggle, onAdd, onRemove, onDeleteCategory }) {
   const [showInput, setShowInput] = useState(false)
   const [draft, setDraft] = useState("")
+  const [confirmDelete, setConfirmDelete] = useState(false)
 
   const commitAdd = () => {
     if (!draft.trim()) return
@@ -445,12 +446,29 @@ function PantryGroup({ groupName, items, onToggle, onAdd, onRemove }) {
     <Card>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "12px" }}>
         <div style={{ fontFamily: "'Playfair Display', serif", fontSize: "14px", color: "var(--text-primary)" }}>{groupName}</div>
-        <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
           <span style={{ fontSize: "11px", color: "var(--text-muted)" }}>{items.filter(i => i.have).length}/{items.length}</span>
           <button onClick={() => { setShowInput(!showInput); setDraft("") }} style={{
             background: "none", border: "1px solid var(--border)", borderRadius: "999px",
             color: "var(--accent)", fontSize: "11px", padding: "2px 10px", cursor: "pointer"
           }}>{showInput ? "Cancel" : "+ Add"}</button>
+          {!confirmDelete ? (
+            <button onClick={() => setConfirmDelete(true)} style={{
+              background: "none", border: "1px solid var(--border)", borderRadius: "999px",
+              color: "var(--text-muted)", fontSize: "11px", padding: "2px 8px", cursor: "pointer", lineHeight: 1
+            }} title="Delete category">✕</button>
+          ) : (
+            <div style={{ display: "flex", gap: "4px" }}>
+              <button onClick={() => { onDeleteCategory(groupName); setConfirmDelete(false) }} style={{
+                background: "var(--red)", border: "none", borderRadius: "999px",
+                color: "white", fontSize: "11px", padding: "2px 8px", cursor: "pointer"
+              }}>Delete</button>
+              <button onClick={() => setConfirmDelete(false)} style={{
+                background: "none", border: "1px solid var(--border)", borderRadius: "999px",
+                color: "var(--text-muted)", fontSize: "11px", padding: "2px 8px", cursor: "pointer"
+              }}>Cancel</button>
+            </div>
+          )}
         </div>
       </div>
 
@@ -493,6 +511,9 @@ function PantryGroup({ groupName, items, onToggle, onAdd, onRemove }) {
 
 function PantryTab({ pantry, onPantryChange }) {
   const [search, setSearch] = useState("")
+  const [showAddCategory, setShowAddCategory] = useState(false)
+  const [newCategoryName, setNewCategoryName] = useState("")
+
   const haveCount = Object.values(pantry).flat().filter(i => i.have).length
   const totalCount = Object.values(pantry).flat().length
 
@@ -505,6 +526,19 @@ function PantryTab({ pantry, onPantryChange }) {
   }
   const handleRemove = (group, name) => {
     onPantryChange({ ...pantry, [group]: pantry[group].filter(item => item.name !== name) })
+  }
+  const handleAddCategory = () => {
+    const name = newCategoryName.trim()
+    if (!name) return
+    if (pantry[name]) return alert("A category with that name already exists.")
+    onPantryChange({ ...pantry, [name]: [] })
+    setNewCategoryName("")
+    setShowAddCategory(false)
+  }
+  const handleDeleteCategory = (group) => {
+    const updated = { ...pantry }
+    delete updated[group]
+    onPantryChange(updated)
   }
 
   const filteredPantry = search
@@ -521,14 +555,45 @@ function PantryTab({ pantry, onPantryChange }) {
         <div>
           <SectionTitle>My Pantry</SectionTitle>
           <p style={{ color: "var(--text-muted)", fontSize: "13px" }}>
-            {haveCount} of {totalCount} items stocked · Toggle items you have · "+ Add" to add to any category
+            {haveCount} of {totalCount} items stocked · Toggle items you have · "+ Add" to add items · "✕" to delete a category
           </p>
         </div>
-        <Input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search pantry..." style={{ maxWidth: "220px" }} />
+        <div style={{ display: "flex", gap: "8px", alignItems: "center", flexWrap: "wrap" }}>
+          <Input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search pantry..." style={{ maxWidth: "220px" }} />
+          {!showAddCategory ? (
+            <button onClick={() => setShowAddCategory(true)} style={{
+              background: "none", border: "1px solid var(--border)", borderRadius: "var(--radius-sm)",
+              color: "var(--accent)", fontSize: "12px", padding: "6px 14px", cursor: "pointer", whiteSpace: "nowrap"
+            }}>+ Add Category</button>
+          ) : (
+            <div style={{ display: "flex", gap: "6px", alignItems: "center" }}>
+              <input
+                autoFocus
+                value={newCategoryName}
+                onChange={e => setNewCategoryName(e.target.value)}
+                onKeyDown={e => { if (e.key === "Enter") handleAddCategory(); if (e.key === "Escape") { setShowAddCategory(false); setNewCategoryName("") } }}
+                placeholder="Category name..."
+                style={{
+                  padding: "7px 10px", border: "1px solid var(--border)", borderRadius: "var(--radius-sm)",
+                  fontSize: "12px", color: "var(--text-primary)", background: "var(--bg-hover)",
+                  outline: "none", width: "160px"
+                }}
+              />
+              <button onClick={handleAddCategory} style={{
+                background: "var(--accent)", border: "none", borderRadius: "var(--radius-sm)",
+                color: "white", fontSize: "12px", padding: "7px 14px", cursor: "pointer", whiteSpace: "nowrap"
+              }}>Add</button>
+              <button onClick={() => { setShowAddCategory(false); setNewCategoryName("") }} style={{
+                background: "none", border: "1px solid var(--border)", borderRadius: "var(--radius-sm)",
+                color: "var(--text-muted)", fontSize: "12px", padding: "7px 14px", cursor: "pointer"
+              }}>Cancel</button>
+            </div>
+          )}
+        </div>
       </div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", gap: "16px" }}>
         {Object.entries(filteredPantry).map(([group, items]) => (
-          <PantryGroup key={group} groupName={group} items={items} onToggle={handleToggle} onAdd={handleAdd} onRemove={handleRemove} />
+          <PantryGroup key={group} groupName={group} items={items} onToggle={handleToggle} onAdd={handleAdd} onRemove={handleRemove} onDeleteCategory={handleDeleteCategory} />
         ))}
       </div>
     </div>
