@@ -149,8 +149,8 @@ function RecipeCard({ recipe, onClick }) {
         {recipe.description}
       </p>
       <div style={{ display: "flex", gap: "14px" }}>
-        <span style={{ fontSize: "11px", color: "var(--text-muted)" }}>⏱ {recipe.prepTime}</span>
-        <span style={{ fontSize: "11px", color: "var(--text-muted)" }}>🔥 {recipe.cookTime}</span>
+        <span style={{ fontSize: "11px", color: "var(--text-muted)" }}>⏱ {recipe.preptime}</span>
+        <span style={{ fontSize: "11px", color: "var(--text-muted)" }}>🔥 {recipe.cooktime}</span>
       </div>
       <div style={{ display: "flex", flexWrap: "wrap", gap: "5px" }}>
         {(recipe.tags || []).slice(0, 3).map(t => <Tag key={t} label={t} />)}
@@ -194,7 +194,7 @@ function RecipeDetail({ recipe, onBack, onDelete, isCore }) {
           display: "flex", gap: "28px", padding: "14px 0",
           borderTop: "1px solid var(--border-light)", borderBottom: "1px solid var(--border-light)", marginBottom: "28px"
         }}>
-          {[["Serves", recipe.servings], ["Prep", recipe.prepTime], ["Cook", recipe.cookTime]].map(([k, v]) => (
+          {[["Serves", recipe.servings], ["Prep", recipe.preptime], ["Cook", recipe.cooktime]].map(([k, v]) => (
             <div key={k} style={{ textAlign: "center" }}>
               <div style={{ fontSize: "10px", color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: "0.08em" }}>{k}</div>
               <div style={{ fontSize: "18px", fontFamily: "'Playfair Display', serif", color: "var(--text-primary)" }}>{v}</div>
@@ -256,7 +256,7 @@ function RecipeDetail({ recipe, onBack, onDelete, isCore }) {
 function AddRecipeForm({ onSave, onCancel, saving }) {
   const [form, setForm] = useState({
     title: "", category: "Weeknight Dinners", servings: "4",
-    prepTime: "", cookTime: "", description: "",
+    preptime: "", cooktime: "", description: "",
     ingredients: "", steps: "", notes: "", tags: ""
   })
   const set = k => e => setForm({ ...form, [k]: e.target.value })
@@ -266,7 +266,7 @@ function AddRecipeForm({ onSave, onCancel, saving }) {
     onSave({
       title: form.title.trim(), category: form.category,
       servings: parseInt(form.servings) || 4,
-      prepTime: form.prepTime || "—", cookTime: form.cookTime || "—",
+      preptime: form.preptime || "—", cooktime: form.cooktime || "—",
       description: form.description.trim(),
       ingredients: form.ingredients.split("\n").map(s => s.trim()).filter(Boolean),
       steps: form.steps.split("\n").map(s => s.trim()).filter(Boolean),
@@ -303,11 +303,11 @@ function AddRecipeForm({ onSave, onCancel, saving }) {
           </div>
           <div>
             <Label>Prep Time</Label>
-            <Input value={form.prepTime} onChange={set("prepTime")} placeholder="10 min" />
+            <Input value={form.preptime} onChange={set("preptime")} placeholder="10 min" />
           </div>
           <div>
             <Label>Cook Time</Label>
-            <Input value={form.cookTime} onChange={set("cookTime")} placeholder="30 min" />
+            <Input value={form.cooktime} onChange={set("cooktime")} placeholder="30 min" />
           </div>
           <div style={{ gridColumn: "1/-1" }}>
             <Label>Description</Label>
@@ -614,7 +614,7 @@ function MealPlannerTab({ plan, onPlanChange, allRecipes }) {
                 onMouseLeave={e => e.currentTarget.style.background = "var(--bg-hover)"}>
                 <CatBadge category={r.category} />
                 <p style={{ fontFamily: "'Playfair Display', serif", fontSize: "13px", color: "var(--text-primary)", margin: "5px 0 2px" }}>{r.title}</p>
-                <p style={{ fontSize: "11px", color: "var(--text-muted)" }}>Serves {r.servings} · {r.cookTime}</p>
+                <p style={{ fontSize: "11px", color: "var(--text-muted)" }}>Serves {r.servings} · {r.cooktime}</p>
               </div>
             ))}
           </div>
