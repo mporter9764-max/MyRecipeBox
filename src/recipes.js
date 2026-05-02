@@ -1,4 +1,21 @@
-export const RECIPES = [
+export const RECIPE_CATEGORIES = [
+  "All",
+  "Weeknight",
+  "Chicken",
+  "Seafood",
+  "Mexican",
+  "Comfort Food",
+  "Lighter Fare",
+  "Soup",
+  "Vegetarian",
+  "Make-Ahead",
+  "30 min",
+  "Side",
+  "Bread",
+  "Quick",
+];
+
+export const CORE_RECIPES = [
   {
     id: "taco-rice-skillet",
     title: "Taco Rice Skillet",
