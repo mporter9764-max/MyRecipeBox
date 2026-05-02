@@ -1,0 +1,48 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Lato', sans-serif;
+  background: #FDF8F2;
+  color: #2C1A0E;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+:root {
+  --bg: #FDF8F2;
+  --bg-card: #FFFFFF;
+  --bg-hover: #FFFAF4;
+  --bg-subtle: #F5EDE0;
+  --header: #2C1A0E;
+  --accent: #B85C2A;
+  --accent-light: #E8956A;
+  --accent-bg: #FFF0E8;
+  --border: #E2D5C3;
+  --border-light: #F0E8DC;
+  --text-primary: #2C1A0E;
+  --text-secondary: #7A5C3A;
+  --text-muted: #B09070;
+  --green: #4A7A4A;
+  --green-bg: #EEF5EE;
+  --red: #C08080;
+  --red-bg: #FFF0F0;
+  --shadow-sm: 0 1px 6px rgba(44,26,14,0.06);
+  --shadow-md: 0 4px 16px rgba(44,26,14,0.10);
+  --shadow-lg: 0 8px 32px rgba(44,26,14,0.14);
+  --radius: 12px;
+  --radius-sm: 8px;
+  --radius-pill: 999px;
+}
+
+button { cursor: pointer; font-family: inherit; }
+input, select, textarea { font-family: inherit; }
+ul, ol { list-style: none; }
+a { color: inherit; text-decoration: none; }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+/* Mobile tap highlight */
+* { -webkit-tap-highlight-color: transparent; }
