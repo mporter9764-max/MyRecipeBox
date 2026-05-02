@@ -831,14 +831,22 @@ export default function App() {
   }, [])
 
   // Add user recipe to Supabase
-  const addRecipe = useCallback(async (recipe) => {
-    setSaving(true)
-    try {
-      const { data, error } = await supabase.from("user_recipes").insert([recipe]).select()
-      if (data) setUserRecipes(prev => [data[0], ...prev])
-    } catch (e) { console.error("Add recipe error:", e) }
-    setSaving(false)
-  }, [])
+const addRecipe = useCallback(async (recipe) => {
+  setSaving(true)
+  try {
+    const { data, error } = await supabase.from("user_recipes").insert([recipe]).select()
+    if (error) {
+      console.error("Add recipe error:", error)
+      alert("Save failed: " + error.message)
+    } else if (data) {
+      setUserRecipes(prev => [data[0], ...prev])
+    }
+  } catch (e) {
+    console.error("Add recipe error:", e)
+    alert("Save failed: " + e.message)
+  }
+  setSaving(false)
+}, [])
 
   // Delete user recipe from Supabase
   const deleteRecipe = useCallback(async (id) => {
