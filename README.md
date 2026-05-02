@@ -1,4 +1,4 @@
-# MyRecipeBox — Setup Guide
+# MyRecipeBox — Setup Guide #
 
 ## What you need (all free)
 - GitHub account: github.com
