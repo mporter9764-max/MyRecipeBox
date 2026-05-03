@@ -16,7 +16,7 @@ export const CORE_RECIPES = [
     servings: 4,
     preptime: "5 min",
     cooktime: "25 min",
-    tags: ["weeknight", "mexican", "30 min", "one pan"],
+    tags: ["Mexican", "Beef"],
     ingredients: [
       "1 lb ground beef (80/20)",
       "1 cup long grain white rice, uncooked",
@@ -48,7 +48,7 @@ export const CORE_RECIPES = [
     servings: 4,
     preptime: "10 min",
     cooktime: "35 min",
-    tags: ["weeknight", "chicken", "one pan"],
+    tags: ["Mediterranean", "Chicken"],
     ingredients: [
       "4 bone-in skin-on chicken thighs",
       "1.5 cups orzo",
@@ -80,7 +80,7 @@ export const CORE_RECIPES = [
     servings: 4,
     preptime: "5 min",
     cooktime: "25 min",
-    tags: ["weeknight", "comfort food", "30 min"],
+    tags: ["Comfort Food", "Beef"],
     ingredients: [
       "1 lb ground beef (80/20)",
       "8 oz egg noodles",
@@ -114,7 +114,7 @@ export const CORE_RECIPES = [
     servings: 4,
     preptime: "10 min",
     cooktime: "30 min",
-    tags: ["seafood", "weeknight", "healthy"],
+    tags: ["Seafood", "Mexican"],
     ingredients: [
       "1.5 lbs halibut fillets",
       "1.5 cups jasmine rice, uncooked",
@@ -145,7 +145,7 @@ export const CORE_RECIPES = [
     servings: 6,
     preptime: "20 min",
     cooktime: "0 min (chill 2+ hrs)",
-    tags: ["soup", "vegetarian", "make-ahead", "lighter fare"],
+    tags: ["Vegetarian", "Spanish"],
     ingredients: [
       "2 lbs ripe Roma tomatoes, cored and roughly chopped",
       "1 English cucumber, roughly chopped",
@@ -174,7 +174,7 @@ export const CORE_RECIPES = [
     servings: 4,
     preptime: "35 min",
     cooktime: "10 min",
-    tags: ["vegetarian", "lighter fare", "pasta", "summer"],
+    tags: ["Pasta", "Italian"],
     ingredients: [
       "1 lb spaghetti or linguine",
       "2 lbs ripe tomatoes, diced (or halved cherry tomatoes)",
@@ -201,7 +201,7 @@ export const CORE_RECIPES = [
     servings: 5,
     preptime: "10 min",
     cooktime: "40 min",
-    tags: ["weeknight", "chicken", "make-ahead"],
+    tags: ["Italian", "Casserole", "Chicken"],
     ingredients: [
       "2 lbs boneless skinless chicken thighs",
       "1 lb baby potatoes, halved",
@@ -233,7 +233,7 @@ export const CORE_RECIPES = [
     servings: 4,
     preptime: "10 min",
     cooktime: "35 min",
-    tags: ["weeknight", "chicken", "comfort food"],
+    tags: ["Italian", "Chicken"],
     ingredients: [
       "4 boneless skinless chicken breasts, pounded thin",
       "8 oz cremini mushrooms, sliced",
@@ -266,7 +266,7 @@ export const CORE_RECIPES = [
     servings: 4,
     preptime: "10 min",
     cooktime: "25 min",
-    tags: ["seafood", "weeknight", "elegant"],
+    tags: ["Seafood"],
     ingredients: [
       "1.5 lbs halibut fillets",
       "2 cans white cannellini beans, drained and rinsed (15 oz each)",
@@ -297,7 +297,7 @@ export const CORE_RECIPES = [
     servings: 4,
     preptime: "10 min",
     cooktime: "30 min",
-    tags: ["seafood", "weeknight", "comfort food"],
+    tags: ["Seafood", "Comfort Food"],
     ingredients: [
       "1.5 lbs large sea scallops (dry-packed)",
       "1 cup stone-ground grits (not instant)",
@@ -328,7 +328,7 @@ export const CORE_RECIPES = [
     servings: 4,
     preptime: "10 min",
     cooktime: "15 min",
-    tags: ["beef", "comfort food", "30 min"],
+    tags: ["Beef", "American"],
     ingredients: [
       "1.5 lbs ground beef (80/20)",
       "4 potato buns",
@@ -360,7 +360,7 @@ export const CORE_RECIPES = [
     servings: 4,
     preptime: "5 min",
     cooktime: "30 min",
-    tags: ["comfort food", "chicken", "30 min"],
+    tags: ["comfort Food", "Chicken"],
     ingredients: [
       "2 lbs Yukon Gold potatoes, peeled and cubed",
       "1 lb boneless skinless chicken thighs, diced",
@@ -390,7 +390,7 @@ export const CORE_RECIPES = [
     servings: 4,
     preptime: "10 min",
     cooktime: "35 min",
-    tags: ["chicken", "weeknight", "comfort food"],
+    tags: ["Chicken", "Comfort Food", "American"],
     ingredients: [
       "4 bone-in skin-on chicken thighs",
       "0.75 cup BBQ sauce",
@@ -419,7 +419,7 @@ export const CORE_RECIPES = [
     servings: 4,
     preptime: "5 min",
     cooktime: "30 min",
-    tags: ["chicken", "weeknight"],
+    tags: ["Chicken", "Caribbean"],
     ingredients: [
       "1.5 lbs boneless skinless chicken thighs",
       "1 can full-fat coconut milk (13.5 oz)",
@@ -451,7 +451,7 @@ export const CORE_RECIPES = [
     servings: 4,
     preptime: "15 min",
     cooktime: "15 min",
-    tags: ["beef", "weeknight", "30 min"],
+    tags: ["Beef", "Asian"],
     ingredients: [
       "1.5 lbs flank steak or sirloin, thinly sliced against the grain",
       "1 head broccoli, cut into florets",
@@ -485,7 +485,7 @@ export const CORE_RECIPES = [
     servings: 4,
     preptime: "10 min",
     cooktime: "15 min",
-    tags: ["mexican", "weeknight", "30 min"],
+    tags: ["Mexican", "Beef"],
     ingredients: [
       "1 lb ground beef (80/20)",
       "2 tbsp taco seasoning",
@@ -518,7 +518,7 @@ export const CORE_RECIPES = [
     servings: 4,
     preptime: "15 min",
     cooktime: "15 min",
-    tags: ["mexican", "seafood", "weeknight", "30 min"],
+    tags: ["Mexican", "Seafood"],
     ingredients: [
       "1.5 lbs halibut or cod fillets, cut into strips",
       "8 corn tortillas",
@@ -560,7 +560,7 @@ export const CORE_RECIPES = [
     servings: 4,
     preptime: "20 min",
     cooktime: "20 min",
-    tags: ["vegetarian", "lighter fare"],
+    tags: ["Vegetarian", "Mediterranean],
     ingredients: [
       "— Falafel —",
       "2 cans chickpeas, drained and very dry (15 oz each)",
@@ -605,7 +605,7 @@ export const CORE_RECIPES = [
     servings: 2,
     preptime: "15 min",
     cooktime: "0 min",
-    tags: ["lighter fare", "quick", "lunch"],
+    tags: ["Seafood", "Mexican"],
     ingredients: [
       "2 cans solid white albacore tuna in water, drained (5 oz each)",
       "2 ripe avocados",
@@ -636,7 +636,7 @@ export const CORE_RECIPES = [
     servings: 6,
     preptime: "15 min",
     cooktime: "40 min",
-    tags: ["chicken", "comfort food", "make-ahead"],
+    tags: ["Chicken", "Comfort Food"],
     ingredients: [
       "2 lbs boneless skinless chicken thighs — or rotisserie chicken, shredded",
       "1 cup frozen peas",
@@ -673,7 +673,7 @@ export const CORE_RECIPES = [
     servings: 8,
     preptime: "15 min",
     cooktime: "15 min (plus 1 hr rise)",
-    tags: ["bread", "side", "vegetarian"],
+    tags: ["Bread"],
     ingredients: [
       "3 cups all-purpose flour, plus more for dusting",
       "1 packet instant yeast (2¼ tsp)",
@@ -700,7 +700,7 @@ export const CORE_RECIPES = [
     servings: 4,
     preptime: "5 min",
     cooktime: "20 min",
-    tags: ["side", "comfort food"],
+    tags: ["Comfort Food"],
     ingredients: [
       "1 cup stone-ground grits (not instant)",
       "3 cups water",
