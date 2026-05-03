@@ -560,7 +560,7 @@ export const CORE_RECIPES = [
     servings: 4,
     preptime: "20 min",
     cooktime: "20 min",
-    tags: ["Vegetarian", "Mediterranean],
+    tags: ["Vegetarian", "Mediterranean"],
     ingredients: [
       "— Falafel —",
       "2 cans chickpeas, drained and very dry (15 oz each)",
