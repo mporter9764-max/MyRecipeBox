@@ -5,12 +5,11 @@ import { DEFAULT_PANTRY, ingredientInPantry } from './pantry'
 
 // ── Category colors ───────────────────────────────────────────────────────────
 const CAT_COLORS = {
-  "Weeknight Dinners": "#B85C2A",
-  "Mexican": "#C1503A",
-  "Soups": "#3A7A6A",
-  "Party Food": "#7A5C8A",
-  "Sides": "#5C7A3A",
-  "Other": "#5C6A7A"
+  "Dinner": "#B85C2A",
+  "Breakfast": "#C8943A",
+  "Soups, Sides & Appetizers": "#3A7A6A",
+  "Drinks": "#5C6A9A",
+  "Dessert": "#8A5C7A",
 }
 
 const DAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
@@ -373,18 +372,21 @@ function RecipesTab({ userRecipes, onDelete, onAdd, onEdit, saving }) {
   const [view, setView] = useState("list")
   const [selected, setSelected] = useState(null)
   const [category, setCategory] = useState("All")
+  const [activeTag, setActiveTag] = useState(null)
   const [search, setSearch] = useState("")
 
-const allRecipes = [...CORE_RECIPES, ...userRecipes]
+  const allRecipes = [...CORE_RECIPES, ...userRecipes]
   const dynamicCategories = ["All", ...Array.from(new Set(allRecipes.map(r => r.category).filter(Boolean))).sort()]
+  const dynamicTags = Array.from(new Set(allRecipes.flatMap(r => r.tags || []))).sort()
 
   const filtered = allRecipes.filter(r => {
     const matchCat = category === "All" || r.category === category
+    const matchTag = !activeTag || (r.tags || []).includes(activeTag)
     const matchSearch = !search ||
       r.title.toLowerCase().includes(search.toLowerCase()) ||
       (r.tags || []).some(t => t.toLowerCase().includes(search.toLowerCase())) ||
       (r.description || "").toLowerCase().includes(search.toLowerCase())
-    return matchCat && matchSearch
+    return matchCat && matchTag && matchSearch
   })
 
   const handleAdd = async (recipe) => {
@@ -419,17 +421,37 @@ const allRecipes = [...CORE_RECIPES, ...userRecipes]
         <Btn variant="primary" onClick={() => setView("add")}>+ Add Recipe</Btn>
       </div>
 
-      <div style={{ display: "flex", gap: "12px", marginBottom: "20px", flexWrap: "wrap" }}>
-        <Input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search recipes, tags..." style={{ maxWidth: "260px" }} />
-        <div style={{ display: "flex", gap: "6px", flexWrap: "wrap" }}>
+   <div style={{ marginBottom: "20px" }}>
+        <div style={{ display: "flex", gap: "12px", marginBottom: "10px", flexWrap: "wrap" }}>
+          <Input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search recipes, tags..." style={{ maxWidth: "260px" }} />
+          <div style={{ display: "flex", gap: "6px", flexWrap: "wrap" }}>
             {dynamicCategories.map(cat => (
-            <button key={cat} onClick={() => setCategory(cat)} style={{
-              background: category === cat ? "var(--header)" : "none",
-              color: category === cat ? "white" : "var(--text-secondary)",
-              border: "1px solid " + (category === cat ? "var(--header)" : "var(--border)"),
-              padding: "6px 13px", borderRadius: "999px", fontSize: "12px",
+              <button key={cat} onClick={() => setCategory(cat)} style={{
+                background: category === cat ? "var(--header)" : "none",
+                color: category === cat ? "white" : "var(--text-secondary)",
+                border: "1px solid " + (category === cat ? "var(--header)" : "var(--border)"),
+                padding: "6px 13px", borderRadius: "999px", fontSize: "12px",
+                fontFamily: "inherit", cursor: "pointer", transition: "all 0.15s"
+              }}>{cat}</button>
+            ))}
+          </div>
+        </div>
+        <div style={{ display: "flex", gap: "6px", flexWrap: "wrap" }}>
+          {activeTag && (
+            <button onClick={() => setActiveTag(null)} style={{
+              background: "var(--accent)", color: "white", border: "none",
+              padding: "4px 10px", borderRadius: "999px", fontSize: "11px",
+              fontFamily: "inherit", cursor: "pointer"
+            }}>✕ {activeTag}</button>
+          )}
+          {dynamicTags.map(tag => (
+            <button key={tag} onClick={() => setActiveTag(activeTag === tag ? null : tag)} style={{
+              background: activeTag === tag ? "var(--accent)20" : "none",
+              color: activeTag === tag ? "var(--accent)" : "var(--text-muted)",
+              border: "1px solid " + (activeTag === tag ? "var(--accent)" : "var(--border-light)"),
+              padding: "4px 10px", borderRadius: "999px", fontSize: "11px",
               fontFamily: "inherit", cursor: "pointer", transition: "all 0.15s"
-            }}>{cat}</button>
+            }}>{tag}</button>
           ))}
         </div>
       </div>
@@ -622,12 +644,42 @@ function PantryTab({ pantry, onPantryChange }) {
 }
 
 // ── Meal Planner Tab ──────────────────────────────────────────────────────────
+// ── Meal Planner Tab ──────────────────────────────────────────────────────────
 function MealPlannerTab({ plan, onPlanChange, allRecipes }) {
   const [picking, setPicking] = useState(null)
   const [search, setSearch] = useState("")
+  const MAX_PER_DAY = 5
 
-  const assign = (day, recipe) => { onPlanChange({ ...plan, [day]: recipe }); setPicking(null); setSearch("") }
-  const clear = (day) => { const u = { ...plan }; delete u[day]; onPlanChange(u) }
+  const getDayRecipes = (day) => {
+    const val = plan[day]
+    if (!val) return []
+    return Array.isArray(val) ? val : [val]
+  }
+
+  const assign = (day, recipe) => {
+    const current = getDayRecipes(day)
+    if (current.length >= MAX_PER_DAY) return
+    onPlanChange({ ...plan, [day]: [...current, recipe] })
+    setPicking(null)
+    setSearch("")
+  }
+
+  const removeFromDay = (day, idx) => {
+    const current = getDayRecipes(day).filter((_, i) => i !== idx)
+    if (current.length === 0) {
+      const u = { ...plan }
+      delete u[day]
+      onPlanChange(u)
+    } else {
+      onPlanChange({ ...plan, [day]: current })
+    }
+  }
+
+  const clearDay = (day) => {
+    const u = { ...plan }
+    delete u[day]
+    onPlanChange(u)
+  }
 
   const filtered = allRecipes.filter(r =>
     !search || r.title.toLowerCase().includes(search.toLowerCase()) || (r.tags || []).some(t => t.includes(search.toLowerCase()))
@@ -637,43 +689,42 @@ function MealPlannerTab({ plan, onPlanChange, allRecipes }) {
     <div>
       <div style={{ marginBottom: "22px" }}>
         <SectionTitle>This Week</SectionTitle>
-        <p style={{ color: "var(--text-muted)", fontSize: "13px" }}>Click any day to assign a recipe</p>
+        <p style={{ color: "var(--text-muted)", fontSize: "13px" }}>Click any day to add meals · Up to {MAX_PER_DAY} per day</p>
       </div>
 
       <div style={{ display: "grid", gridTemplateColumns: "repeat(7, 1fr)", gap: "8px", marginBottom: "28px" }}>
         {DAYS.map(day => {
-          const assigned = plan[day]
+          const recipes = getDayRecipes(day)
           const active = picking === day
+          const canAdd = recipes.length < MAX_PER_DAY
           return (
             <div key={day} style={{
               border: `1px solid ${active ? "var(--accent)" : "var(--border)"}`,
               borderRadius: "var(--radius)", overflow: "hidden",
-              background: assigned ? "var(--bg-hover)" : "var(--bg-card)", transition: "all 0.15s"
+              background: recipes.length > 0 ? "var(--bg-hover)" : "var(--bg-card)", transition: "all 0.15s"
             }}>
-              <div style={{ background: active ? "var(--accent)" : "var(--header)", padding: "7px 10px" }}>
+              <div style={{ background: active ? "var(--accent)" : "var(--header)", padding: "7px 10px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                 <div style={{ fontSize: "10px", color: active ? "white" : "var(--accent-light)", textTransform: "uppercase", letterSpacing: "0.1em" }}>
                   {day.slice(0, 3)}
                 </div>
+                {recipes.length > 0 && (
+                  <button onClick={() => clearDay(day)} style={{ background: "none", border: "none", color: active ? "white" : "var(--accent-light)", fontSize: "11px", cursor: "pointer", padding: 0, lineHeight: 1 }} title="Clear day">✕</button>
+                )}
               </div>
-              <div style={{ padding: "10px", minHeight: "86px", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
-                {assigned ? (
-                  <>
-                    <div>
-                      <CatBadge category={assigned.category} />
-                      <p style={{ fontFamily: "'Playfair Display', serif", fontSize: "12px", color: "var(--text-primary)", margin: "5px 0 3px", lineHeight: "1.3" }}>{assigned.title}</p>
-                      <p style={{ fontSize: "10px", color: "var(--text-muted)" }}>Serves {assigned.servings}</p>
-                    </div>
-                    <div style={{ display: "flex", gap: "4px", marginTop: "8px" }}>
-                      <button onClick={() => setPicking(active ? null : day)} style={{ flex: 1, background: "none", border: "1px solid var(--border)", borderRadius: "4px", fontSize: "10px", padding: "3px 6px", cursor: "pointer", color: "var(--text-secondary)" }}>Change</button>
-                      <button onClick={() => clear(day)} style={{ background: "none", border: "1px solid var(--border)", borderRadius: "4px", fontSize: "10px", padding: "3px 6px", cursor: "pointer", color: "var(--red)" }}>✕</button>
-                    </div>
-                  </>
-                ) : (
+              <div style={{ padding: "8px", minHeight: "90px", display: "flex", flexDirection: "column", gap: "5px" }}>
+                {recipes.map((r, idx) => (
+                  <div key={idx} style={{ background: "var(--bg-card)", border: "1px solid var(--border-light)", borderRadius: "6px", padding: "5px 7px", display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: "4px" }}>
+                    <p style={{ fontFamily: "'Playfair Display', serif", fontSize: "11px", color: "var(--text-primary)", margin: 0, lineHeight: "1.3", flex: 1 }}>{r.title}</p>
+                    <button onClick={() => removeFromDay(day, idx)} style={{ background: "none", border: "none", color: "var(--text-muted)", fontSize: "13px", cursor: "pointer", padding: 0, lineHeight: 1, flexShrink: 0 }}>✕</button>
+                  </div>
+                ))}
+                {canAdd && (
                   <button onClick={() => setPicking(active ? null : day)} style={{
-                    width: "100%", height: "100%", background: "none", border: "1px dashed var(--border)",
-                    borderRadius: "8px", color: "var(--text-muted)", fontSize: "12px", cursor: "pointer",
-                    padding: "16px 6px", minHeight: "68px"
-                  }}>+ Add meal</button>
+                    width: "100%", background: "none",
+                    border: recipes.length > 0 ? "1px dashed var(--border)" : "1px dashed var(--border)",
+                    borderRadius: "6px", color: "var(--text-muted)", fontSize: "11px", cursor: "pointer",
+                    padding: "6px 4px", marginTop: recipes.length > 0 ? "2px" : "0"
+                  }}>+ Add</button>
                 )}
               </div>
             </div>
@@ -685,7 +736,7 @@ function MealPlannerTab({ plan, onPlanChange, allRecipes }) {
         <Card style={{ marginBottom: "24px", border: "1px solid var(--accent)" }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "14px" }}>
             <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: "15px", fontWeight: "400" }}>
-              Pick a recipe for <strong>{picking}</strong>
+              Add a recipe to <strong>{picking}</strong>
             </h3>
             <Btn variant="outline" onClick={() => { setPicking(null); setSearch("") }} style={{ fontSize: "12px", padding: "4px 12px" }}>Cancel</Btn>
           </div>
@@ -710,7 +761,7 @@ function MealPlannerTab({ plan, onPlanChange, allRecipes }) {
       {Object.keys(plan).length > 0 && (
         <div style={{ background: "var(--bg-subtle)", borderRadius: "var(--radius-sm)", padding: "14px 18px" }}>
           <p style={{ fontSize: "13px", color: "var(--text-secondary)" }}>
-            <strong>{Object.keys(plan).length}</strong> of 7 days planned
+            <strong>{Object.keys(plan).length}</strong> of 7 days planned · <strong>{Object.values(plan).flat().length}</strong> total meals
           </p>
         </div>
       )}
@@ -726,7 +777,7 @@ function ShoppingListTab({ plan, pantry, onAddToPantry }) {
   const toggleCheck = key => setChecked(prev => ({ ...prev, [key]: !prev[key] }))
   const clearChecked = () => setChecked({})
 
-  const plannedRecipes = Object.values(plan)
+const plannedRecipes = Object.values(plan).flat()
 
   if (plannedRecipes.length === 0) {
     return (
@@ -881,9 +932,11 @@ export default function App() {
 
         if (recipesRes.data) setUserRecipes(recipesRes.data)
 
-        if (planRes.data && planRes.data.length > 0) {
+     if (planRes.data && planRes.data.length > 0) {
           const planObj = {}
-          planRes.data.forEach(row => { planObj[row.day] = row.recipe })
+          planRes.data.forEach(row => {
+            planObj[row.day] = Array.isArray(row.recipe) ? row.recipe : (row.recipe ? [row.recipe] : [])
+          })
           setPlan(planObj)
         }
 
