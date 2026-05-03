@@ -261,7 +261,7 @@ export const CORE_RECIPES = [
   {
     id: "halibut-white-bean",
     title: "Pan-Seared Halibut over White Bean Puree with Broccolini",
-    category: "dinner",
+    category: "Dinner",
     description: "Beautifully seared halibut over a silky white bean puree with sautéed broccolini and a lemon-herb baste.",
     servings: 4,
     preptime: "10 min",
@@ -555,7 +555,7 @@ export const CORE_RECIPES = [
   {
     id: "falafel-pita",
     title: "Falafel Pita with Tzatziki and Green Goddess",
-    category: "dinner",
+    category: "Dinner",
     description: "Crispy herb-packed falafel in warm pita with cool tzatziki, fresh vegetables, and green goddess dressing.",
     servings: 4,
     preptime: "20 min",
