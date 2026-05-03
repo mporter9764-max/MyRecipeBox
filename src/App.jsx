@@ -375,7 +375,8 @@ function RecipesTab({ userRecipes, onDelete, onAdd, onEdit, saving }) {
   const [category, setCategory] = useState("All")
   const [search, setSearch] = useState("")
 
-  const allRecipes = [...CORE_RECIPES, ...userRecipes]
+const allRecipes = [...CORE_RECIPES, ...userRecipes]
+  const dynamicCategories = ["All", ...Array.from(new Set(allRecipes.map(r => r.category).filter(Boolean))).sort()]
 
   const filtered = allRecipes.filter(r => {
     const matchCat = category === "All" || r.category === category
@@ -421,7 +422,7 @@ function RecipesTab({ userRecipes, onDelete, onAdd, onEdit, saving }) {
       <div style={{ display: "flex", gap: "12px", marginBottom: "20px", flexWrap: "wrap" }}>
         <Input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search recipes, tags..." style={{ maxWidth: "260px" }} />
         <div style={{ display: "flex", gap: "6px", flexWrap: "wrap" }}>
-          {RECIPE_CATEGORIES.map(cat => (
+            {dynamicCategories.map(cat => (
             <button key={cat} onClick={() => setCategory(cat)} style={{
               background: category === cat ? "var(--header)" : "none",
               color: category === cat ? "white" : "var(--text-secondary)",
