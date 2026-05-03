@@ -16,7 +16,7 @@ export const CORE_RECIPES = [
     servings: 4,
     preptime: "5 min",
     cooktime: "25 min",
-    tags: ["Mexican", "Beef"],
+    tags: ["mexican", "beef"],
     ingredients: [
       "1 lb ground beef (80/20)",
       "1 cup long grain white rice, uncooked",
@@ -25,7 +25,7 @@ export const CORE_RECIPES = [
       "1 can black beans, drained and rinsed (15 oz)",
       "1 cup corn kernels, frozen or canned",
       "2 tbsp taco seasoning (or 1 packet)",
-      "1 cup shredded Mexican cheese blend",
+      "1 cup shredded mexican cheese blend",
       "2 tbsp neutral oil",
       "Salt and pepper to taste",
       "Optional: sour cream, avocado, jalapeño, cilantro for serving",
@@ -48,7 +48,7 @@ export const CORE_RECIPES = [
     servings: 4,
     preptime: "10 min",
     cooktime: "35 min",
-    tags: ["Mediterranean", "Chicken"],
+    tags: ["mediterranean", "chicken"],
     ingredients: [
       "4 bone-in skin-on chicken thighs",
       "1.5 cups orzo",
@@ -80,7 +80,7 @@ export const CORE_RECIPES = [
     servings: 4,
     preptime: "5 min",
     cooktime: "25 min",
-    tags: ["Comfort Food", "Beef"],
+    tags: ["comfort food", "beef"],
     ingredients: [
       "1 lb ground beef (80/20)",
       "8 oz egg noodles",
@@ -114,7 +114,7 @@ export const CORE_RECIPES = [
     servings: 4,
     preptime: "10 min",
     cooktime: "30 min",
-    tags: ["Seafood", "Mexican"],
+    tags: ["seafood", "mexican"],
     ingredients: [
       "1.5 lbs halibut fillets",
       "1.5 cups jasmine rice, uncooked",
@@ -145,7 +145,7 @@ export const CORE_RECIPES = [
     servings: 6,
     preptime: "20 min",
     cooktime: "0 min (chill 2+ hrs)",
-    tags: ["Vegetarian", "Spanish"],
+    tags: ["vegetarian", "spanish"],
     ingredients: [
       "2 lbs ripe Roma tomatoes, cored and roughly chopped",
       "1 English cucumber, roughly chopped",
@@ -174,7 +174,7 @@ export const CORE_RECIPES = [
     servings: 4,
     preptime: "35 min",
     cooktime: "10 min",
-    tags: ["Pasta", "Italian"],
+    tags: ["pasta", "italian"],
     ingredients: [
       "1 lb spaghetti or linguine",
       "2 lbs ripe tomatoes, diced (or halved cherry tomatoes)",
@@ -201,7 +201,7 @@ export const CORE_RECIPES = [
     servings: 5,
     preptime: "10 min",
     cooktime: "40 min",
-    tags: ["Italian", "Casserole", "Chicken"],
+    tags: ["italian", "casserole", "chicken"],
     ingredients: [
       "2 lbs boneless skinless chicken thighs",
       "1 lb baby potatoes, halved",
@@ -233,7 +233,7 @@ export const CORE_RECIPES = [
     servings: 4,
     preptime: "10 min",
     cooktime: "35 min",
-    tags: ["Italian", "Chicken"],
+    tags: ["italian", "chicken"],
     ingredients: [
       "4 boneless skinless chicken breasts, pounded thin",
       "8 oz cremini mushrooms, sliced",
@@ -261,7 +261,7 @@ export const CORE_RECIPES = [
   {
     id: "halibut-white-bean",
     title: "Pan-Seared Halibut over White Bean Puree with Broccolini",
-    category: "Dinner",
+    category: "dinner",
     description: "Beautifully seared halibut over a silky white bean puree with sautéed broccolini and a lemon-herb baste.",
     servings: 4,
     preptime: "10 min",
@@ -297,7 +297,7 @@ export const CORE_RECIPES = [
     servings: 4,
     preptime: "10 min",
     cooktime: "30 min",
-    tags: ["Seafood", "Comfort Food"],
+    tags: ["seafood", "comfort food"],
     ingredients: [
       "1.5 lbs large sea scallops (dry-packed)",
       "1 cup stone-ground grits (not instant)",
@@ -324,15 +324,15 @@ export const CORE_RECIPES = [
     id: "smash-burgers",
     title: "Smash Burgers",
     category: "Dinner",
-    description: "Crispy-edged smash burgers on potato buns with a tangy smash sauce, dill pickles, and American cheese.",
+    description: "Crispy-edged smash burgers on potato buns with a tangy smash sauce, dill pickles, and american cheese.",
     servings: 4,
     preptime: "10 min",
     cooktime: "15 min",
-    tags: ["Beef", "American"],
+    tags: ["beef", "american"],
     ingredients: [
       "1.5 lbs ground beef (80/20)",
       "4 potato buns",
-      "4 slices American cheese",
+      "4 slices american cheese",
       "0.5 cup mayonnaise",
       "2 tbsp ketchup",
       "1 tbsp yellow mustard",
@@ -360,7 +360,7 @@ export const CORE_RECIPES = [
     servings: 4,
     preptime: "5 min",
     cooktime: "30 min",
-    tags: ["comfort Food", "Chicken"],
+    tags: ["comfort Food", "chicken"],
     ingredients: [
       "2 lbs Yukon Gold potatoes, peeled and cubed",
       "1 lb boneless skinless chicken thighs, diced",
@@ -390,7 +390,7 @@ export const CORE_RECIPES = [
     servings: 4,
     preptime: "10 min",
     cooktime: "35 min",
-    tags: ["Chicken", "Comfort Food", "American"],
+    tags: ["chicken", "comfort food", "american"],
     ingredients: [
       "4 bone-in skin-on chicken thighs",
       "0.75 cup BBQ sauce",
@@ -419,7 +419,7 @@ export const CORE_RECIPES = [
     servings: 4,
     preptime: "5 min",
     cooktime: "30 min",
-    tags: ["Chicken", "Caribbean"],
+    tags: ["chicken", "caribbean"],
     ingredients: [
       "1.5 lbs boneless skinless chicken thighs",
       "1 can full-fat coconut milk (13.5 oz)",
@@ -451,7 +451,7 @@ export const CORE_RECIPES = [
     servings: 4,
     preptime: "15 min",
     cooktime: "15 min",
-    tags: ["Beef", "Asian"],
+    tags: ["beef", "asian"],
     ingredients: [
       "1.5 lbs flank steak or sirloin, thinly sliced against the grain",
       "1 head broccoli, cut into florets",
@@ -485,14 +485,14 @@ export const CORE_RECIPES = [
     servings: 4,
     preptime: "10 min",
     cooktime: "15 min",
-    tags: ["Mexican", "Beef"],
+    tags: ["mexican", "beef"],
     ingredients: [
       "1 lb ground beef (80/20)",
       "2 tbsp taco seasoning",
       "1 head romaine lettuce, chopped",
       "1 can black beans, drained and rinsed (15 oz)",
       "1 cup cherry tomatoes, halved",
-      "1 cup shredded Mexican cheese blend",
+      "1 cup shredded mexican cheese blend",
       "0.5 cup sour cream",
       "0.5 cup guacamole or sliced avocado",
       "Valentina hot sauce, to taste — essential",
@@ -518,7 +518,7 @@ export const CORE_RECIPES = [
     servings: 4,
     preptime: "15 min",
     cooktime: "15 min",
-    tags: ["Mexican", "Seafood"],
+    tags: ["mexican", "seafood"],
     ingredients: [
       "1.5 lbs halibut or cod fillets, cut into strips",
       "8 corn tortillas",
@@ -555,7 +555,7 @@ export const CORE_RECIPES = [
   {
     id: "falafel-pita",
     title: "Falafel Pita with Tzatziki and Green Goddess",
-    category: "Dinner",
+    category: "dinner",
     description: "Crispy herb-packed falafel in warm pita with cool tzatziki, fresh vegetables, and green goddess dressing.",
     servings: 4,
     preptime: "20 min",
@@ -605,7 +605,7 @@ export const CORE_RECIPES = [
     servings: 2,
     preptime: "15 min",
     cooktime: "0 min",
-    tags: ["Seafood", "Mexican"],
+    tags: ["seafood", "mexican"],
     ingredients: [
       "2 cans solid white albacore tuna in water, drained (5 oz each)",
       "2 ripe avocados",
@@ -636,7 +636,7 @@ export const CORE_RECIPES = [
     servings: 6,
     preptime: "15 min",
     cooktime: "40 min",
-    tags: ["Chicken", "Comfort Food"],
+    tags: ["chicken", "comfort food"],
     ingredients: [
       "2 lbs boneless skinless chicken thighs — or rotisserie chicken, shredded",
       "1 cup frozen peas",
@@ -673,7 +673,7 @@ export const CORE_RECIPES = [
     servings: 8,
     preptime: "15 min",
     cooktime: "15 min (plus 1 hr rise)",
-    tags: ["Bread"],
+    tags: ["bread"],
     ingredients: [
       "3 cups all-purpose flour, plus more for dusting",
       "1 packet instant yeast (2¼ tsp)",
@@ -700,7 +700,7 @@ export const CORE_RECIPES = [
     servings: 4,
     preptime: "5 min",
     cooktime: "20 min",
-    tags: ["Comfort Food"],
+    tags: ["comfort food"],
     ingredients: [
       "1 cup stone-ground grits (not instant)",
       "3 cups water",
