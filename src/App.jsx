@@ -160,7 +160,7 @@ function RecipeCard({ recipe, onClick }) {
 }
 
 // ── Recipe Detail ─────────────────────────────────────────────────────────────
-function RecipeDetail({ recipe, onBack, onDelete, isCore }) {
+function RecipeDetail({ recipe, onBack, onDelete, onEdit, isCore }) {
   const [confirmDel, setConfirmDel] = useState(false)
   return (
     <div style={{ maxWidth: "720px", margin: "0 auto" }}>
@@ -173,12 +173,16 @@ function RecipeDetail({ recipe, onBack, onDelete, isCore }) {
         <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "10px" }}>
           <CatBadge category={recipe.category} />
           {!isCore && (
-            !confirmDel
-              ? <Btn variant="outline" onClick={() => setConfirmDel(true)} style={{ fontSize: "12px", padding: "4px 12px", color: "var(--red)" }}>Delete</Btn>
-              : <div style={{ display: "flex", gap: "8px" }}>
-                  <Btn variant="danger" onClick={() => onDelete(recipe.id)} style={{ fontSize: "12px", padding: "4px 12px" }}>Confirm</Btn>
-                  <Btn variant="outline" onClick={() => setConfirmDel(false)} style={{ fontSize: "12px", padding: "4px 12px" }}>Cancel</Btn>
-                </div>
+            <div style={{ display: "flex", gap: "8px", alignItems: "center" }}>
+              <Btn variant="outline" onClick={() => onEdit(recipe)} style={{ fontSize: "12px", padding: "4px 12px" }}>Edit</Btn>
+              {!confirmDel
+                ? <Btn variant="outline" onClick={() => setConfirmDel(true)} style={{ fontSize: "12px", padding: "4px 12px", color: "var(--red)" }}>Delete</Btn>
+                : <div style={{ display: "flex", gap: "8px" }}>
+                    <Btn variant="danger" onClick={() => onDelete(recipe.id)} style={{ fontSize: "12px", padding: "4px 12px" }}>Confirm</Btn>
+                    <Btn variant="outline" onClick={() => setConfirmDel(false)} style={{ fontSize: "12px", padding: "4px 12px" }}>Cancel</Btn>
+                  </div>
+              }
+            </div>
           )}
         </div>
 
@@ -253,17 +257,26 @@ function RecipeDetail({ recipe, onBack, onDelete, isCore }) {
 }
 
 // ── Add Recipe Form ───────────────────────────────────────────────────────────
-function AddRecipeForm({ onSave, onCancel, saving }) {
+function AddRecipeForm({ onSave, onCancel, saving, initialData = null }) {
+  const isEdit = !!initialData
   const [form, setForm] = useState({
-    title: "", category: "Weeknight Dinners", servings: "4",
-    preptime: "", cooktime: "", description: "",
-    ingredients: "", steps: "", notes: "", tags: ""
+    title: initialData?.title || "",
+    category: initialData?.category || "Weeknight Dinners",
+    servings: initialData?.servings?.toString() || "4",
+    preptime: initialData?.preptime || "",
+    cooktime: initialData?.cooktime || "",
+    description: initialData?.description || "",
+    ingredients: initialData?.ingredients?.join("\n") || "",
+    steps: initialData?.steps?.join("\n") || "",
+    notes: initialData?.notes || "",
+    tags: initialData?.tags?.join(", ") || ""
   })
   const set = k => e => setForm({ ...form, [k]: e.target.value })
 
   const handleSave = () => {
     if (!form.title.trim()) return alert("Recipe needs a title.")
     onSave({
+      ...(initialData || {}),
       title: form.title.trim(), category: form.category,
       servings: parseInt(form.servings) || 4,
       preptime: form.preptime || "—", cooktime: form.cooktime || "—",
@@ -275,13 +288,11 @@ function AddRecipeForm({ onSave, onCancel, saving }) {
     })
   }
 
-  const ta = { ...({}) }
-
   return (
     <div style={{ maxWidth: "720px", margin: "0 auto" }}>
       <button onClick={onCancel} style={{ background: "none", border: "none", color: "var(--accent)", fontSize: "14px", padding: "0 0 20px" }}>← Cancel</button>
       <Card style={{ padding: "36px" }}>
-        <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: "24px", fontWeight: "400", marginBottom: "24px" }}>Add a Recipe</h2>
+        <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: "24px", fontWeight: "400", marginBottom: "24px" }}>{isEdit ? "Edit Recipe" : "Add a Recipe"}</h2>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }}>
           <div style={{ gridColumn: "1/-1" }}>
             <Label>Title</Label>
@@ -350,7 +361,7 @@ function AddRecipeForm({ onSave, onCancel, saving }) {
         </div>
         <div style={{ display: "flex", gap: "10px", justifyContent: "flex-end", marginTop: "20px" }}>
           <Btn variant="outline" onClick={onCancel}>Cancel</Btn>
-          <Btn variant="primary" onClick={handleSave} disabled={saving}>{saving ? "Saving..." : "Save Recipe"}</Btn>
+         <Btn variant="primary" onClick={handleSave} disabled={saving}>{saving ? "Saving..." : isEdit ? "Save Changes" : "Save Recipe"}</Btn>
         </div>
       </Card>
     </div>
@@ -358,7 +369,7 @@ function AddRecipeForm({ onSave, onCancel, saving }) {
 }
 
 // ── Recipes Tab ───────────────────────────────────────────────────────────────
-function RecipesTab({ userRecipes, onDelete, onAdd, saving }) {
+function RecipesTab({ userRecipes, onDelete, onAdd, onEdit, saving }) {
   const [view, setView] = useState("list")
   const [selected, setSelected] = useState(null)
   const [category, setCategory] = useState("All")
@@ -380,12 +391,21 @@ function RecipesTab({ userRecipes, onDelete, onAdd, saving }) {
     setView("list")
   }
 
+  const handleEdit = async (recipe) => {
+    await onEdit(recipe)
+    setView("detail")
+    setSelected(prev => ({ ...prev, ...recipe }))
+  }
+
   if (view === "detail" && selected) {
     const isCore = CORE_RECIPES.some(r => r.id === selected.id)
-    return <RecipeDetail recipe={selected} onBack={() => setView("list")} onDelete={async (id) => { await onDelete(id); setView("list") }} isCore={isCore} />
+    return <RecipeDetail recipe={selected} onBack={() => setView("list")} onDelete={async (id) => { await onDelete(id); setView("list") }} onEdit={() => setView("edit")} isCore={isCore} />
   }
   if (view === "add") {
     return <AddRecipeForm onSave={handleAdd} onCancel={() => setView("list")} saving={saving} />
+  }
+  if (view === "edit" && selected) {
+    return <AddRecipeForm onSave={handleEdit} onCancel={() => setView("detail")} saving={saving} initialData={selected} />
   }
 
   return (
@@ -914,11 +934,29 @@ const addRecipe = useCallback(async (recipe) => {
 }, [])
 
   // Delete user recipe from Supabase
-  const deleteRecipe = useCallback(async (id) => {
+const deleteRecipe = useCallback(async (id) => {
     try {
       await supabase.from("user_recipes").delete().eq("id", id)
       setUserRecipes(prev => prev.filter(r => r.id !== id))
     } catch (e) { console.error("Delete recipe error:", e) }
+  }, [])
+
+  const updateRecipe = useCallback(async (recipe) => {
+    setSaving(true)
+    try {
+      const { id, created_at, ...fields } = recipe
+      const { data, error } = await supabase.from("user_recipes").update(fields).eq("id", id).select()
+      if (error) {
+        console.error("Update recipe error:", error)
+        alert("Update failed: " + error.message)
+      } else if (data) {
+        setUserRecipes(prev => prev.map(r => r.id === id ? data[0] : r))
+      }
+    } catch (e) {
+      console.error("Update recipe error:", e)
+      alert("Update failed: " + e.message)
+    }
+    setSaving(false)
   }, [])
 
   // Add a single item to pantry (from shopping list check-off)
@@ -977,7 +1015,7 @@ const addRecipe = useCallback(async (recipe) => {
 
       {/* Content */}
       <div style={{ padding: "28px 32px", maxWidth: "1200px", margin: "0 auto" }}>
-        {tab === "recipes" && <RecipesTab userRecipes={userRecipes} onDelete={deleteRecipe} onAdd={addRecipe} saving={saving} />}
+        {tab === "recipes" && <RecipesTab userRecipes={userRecipes} onDelete={deleteRecipe} onAdd={addRecipe} onEdit={updateRecipe} saving={saving} />}
         {tab === "pantry" && <PantryTab pantry={pantry} onPantryChange={savePantry} />}
         {tab === "planner" && <MealPlannerTab plan={plan} onPlanChange={savePlan} allRecipes={allRecipes} />}
         {tab === "shopping" && <ShoppingListTab plan={plan} pantry={pantry} onAddToPantry={addToPantry} />}
