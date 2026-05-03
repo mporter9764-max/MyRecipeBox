@@ -1,17 +1,17 @@
 export const RECIPE_CATEGORIES = [
   "All",
-  "Weeknight Dinners",
-  "Mexican",
-  "Soups",
-  "Sides",
-  "Other",
+  "Dinner",
+  "Breakfast",
+  "Soups, Sides & Appetizers",
+  "Drinks",
+  "Dessert",
 ];
 
 export const CORE_RECIPES = [
   {
     id: "taco-rice-skillet",
     title: "Taco Rice Skillet",
-    category: "Mexican",
+    category: "Dinner",
     description: "One-skillet weeknight dinner with ground beef, rice, black beans, and corn topped with melted cheese.",
     servings: 4,
     preptime: "5 min",
@@ -43,7 +43,7 @@ export const CORE_RECIPES = [
   {
     id: "lemon-orzo-chicken",
     title: "Lemon Orzo with Roasted Chicken Thighs",
-    category: "Weeknight Dinners",
+    category: "Dinner",
     description: "One-pan dinner with crispy-skinned chicken thighs roasted over lemony orzo with spinach and Parmesan.",
     servings: 4,
     preptime: "10 min",
@@ -75,7 +75,7 @@ export const CORE_RECIPES = [
   {
     id: "beef-stroganoff",
     title: "Ground Beef Stroganoff",
-    category: "Weeknight Dinners",
+    category: "Dinner",
     description: "Creamy weeknight stroganoff with ground beef, deeply browned mushrooms, and egg noodles.",
     servings: 4,
     preptime: "5 min",
@@ -109,7 +109,7 @@ export const CORE_RECIPES = [
   {
     id: "halibut-cilantro-rice",
     title: "Pan-Seared Halibut with Cilantro Lime Rice and Roasted Broccoli",
-    category: "Weeknight Dinners",
+    category: "Dinner",
     description: "Crispy pan-seared halibut over bright cilantro lime rice with oven-roasted broccoli.",
     servings: 4,
     preptime: "10 min",
@@ -140,7 +140,7 @@ export const CORE_RECIPES = [
   {
     id: "gazpacho",
     title: "Gazpacho",
-    category: "Soups",
+    category: "Soups, Sides & Appetizers",
     description: "Cold Spanish tomato soup blended with cucumber, bell pepper, and sherry vinegar. Best made a day ahead.",
     servings: 6,
     preptime: "20 min",
@@ -169,7 +169,7 @@ export const CORE_RECIPES = [
   {
     id: "pomodoro-crudo",
     title: "Pasta al Pomodoro Crudo",
-    category: "Weeknight Dinners",
+    category: "Dinner",
     description: "Raw tomato pasta where the heat of freshly drained pasta lightly warms a garlic, basil, and olive oil sauce.",
     servings: 4,
     preptime: "35 min",
@@ -196,7 +196,7 @@ export const CORE_RECIPES = [
   {
     id: "tuscan-chicken-casserole",
     title: "Lighter Tuscan Chicken Casserole",
-    category: "Weeknight Dinners",
+    category: "Dinner",
     description: "Seared chicken thighs braised with sun-dried tomatoes, baby potatoes, and broccoli finished with Greek yogurt.",
     servings: 5,
     preptime: "10 min",
@@ -228,7 +228,7 @@ export const CORE_RECIPES = [
   {
     id: "chicken-marsala",
     title: "Chicken Marsala with Cream Cheese Mashed Potatoes",
-    category: "Weeknight Dinners",
+    category: "Dinner",
     description: "Seared chicken cutlets in a Marsala-mushroom pan sauce over ultra-creamy cream cheese mashed potatoes.",
     servings: 4,
     preptime: "10 min",
@@ -261,7 +261,7 @@ export const CORE_RECIPES = [
   {
     id: "halibut-white-bean",
     title: "Pan-Seared Halibut over White Bean Puree with Broccolini",
-    category: "Weeknight Dinners",
+    category: "Dinner",
     description: "Beautifully seared halibut over a silky white bean puree with sautéed broccolini and a lemon-herb baste.",
     servings: 4,
     preptime: "10 min",
@@ -292,7 +292,7 @@ export const CORE_RECIPES = [
   {
     id: "scallops-grits",
     title: "Seared Scallops with Cheddar Grits and Wilted Spinach",
-    category: "Weeknight Dinners",
+    category: "Dinner",
     description: "Dry-packed sea scallops with a deep golden crust over creamy cheddar grits with garlicky wilted spinach.",
     servings: 4,
     preptime: "10 min",
@@ -323,7 +323,7 @@ export const CORE_RECIPES = [
   {
     id: "smash-burgers",
     title: "Smash Burgers",
-    category: "Weeknight Dinners",
+    category: "Dinner",
     description: "Crispy-edged smash burgers on potato buns with a tangy smash sauce, dill pickles, and American cheese.",
     servings: 4,
     preptime: "10 min",
@@ -355,7 +355,7 @@ export const CORE_RECIPES = [
   {
     id: "kfc-bowls",
     title: "KFC-Style Mashed Potato Bowls",
-    category: "Weeknight Dinners",
+    category: "Dinner",
     description: "Comfort food bowls with creamy mashed potatoes, seasoned chicken, corn, gravy, and cheddar cheese.",
     servings: 4,
     preptime: "5 min",
@@ -385,7 +385,7 @@ export const CORE_RECIPES = [
   {
     id: "bbq-chicken-thighs",
     title: "BBQ Chicken Thighs with Velveeta Mac and Sautéed Green Beans",
-    category: "Weeknight Dinners",
+    category: "Dinner",
     description: "Saucy BBQ chicken thighs — Instant Pot or grill — with stovetop Velveeta mac and blistered green beans.",
     servings: 4,
     preptime: "10 min",
@@ -414,7 +414,7 @@ export const CORE_RECIPES = [
   {
     id: "coconut-lime-chicken",
     title: "Coconut Lime Chicken over White Rice",
-    category: "Weeknight Dinners",
+    category: "Dinner",
     description: "Seared chicken thighs simmered in a bright coconut milk, lime, and ginger sauce served over jasmine rice.",
     servings: 4,
     preptime: "5 min",
@@ -446,7 +446,7 @@ export const CORE_RECIPES = [
   {
     id: "beef-broccoli",
     title: "Beef & Broccoli over White Rice",
-    category: "Weeknight Dinners",
+    category: "Dinner",
     description: "Velveted flank steak and broccoli in a glossy soy-oyster sauce stir-fry over jasmine rice.",
     servings: 4,
     preptime: "15 min",
@@ -480,7 +480,7 @@ export const CORE_RECIPES = [
   {
     id: "taco-salad",
     title: "Taco Salad with Valentina and Ranch Doritos",
-    category: "Mexican",
+    category: "Dinner",
     description: "Loaded taco salad bowl with seasoned ground beef, black beans, cheese, guac, Valentina, and crushed Ranch Doritos.",
     servings: 4,
     preptime: "10 min",
@@ -513,7 +513,7 @@ export const CORE_RECIPES = [
   {
     id: "fish-tacos",
     title: "Fish Tacos with Chipotle Crema",
-    category: "Mexican",
+    category: "Dinner",
     description: "Crispy seasoned halibut in corn tortillas with a smoky chipotle crema, quick cabbage slaw, and avocado.",
     servings: 4,
     preptime: "15 min",
@@ -555,7 +555,7 @@ export const CORE_RECIPES = [
   {
     id: "falafel-pita",
     title: "Falafel Pita with Tzatziki and Green Goddess",
-    category: "Other",
+    category: "Dinner",
     description: "Crispy herb-packed falafel in warm pita with cool tzatziki, fresh vegetables, and green goddess dressing.",
     servings: 4,
     preptime: "20 min",
@@ -600,7 +600,7 @@ export const CORE_RECIPES = [
   {
     id: "tuna-avocado-toast",
     title: "Tuna Avocado Toast",
-    category: "Other",
+    category: "Dinner",
     description: "Elevated tuna salad on crushed avocado toast with capers, Dijon, everything bagel seasoning, and red pepper flakes.",
     servings: 2,
     preptime: "15 min",
@@ -631,7 +631,7 @@ export const CORE_RECIPES = [
   {
     id: "chicken-pot-pie-casserole",
     title: "Chicken Pot Pie Casserole",
-    category: "Weeknight Dinners",
+    category: "Dinner",
     description: "Classic pot pie filling with chicken, vegetables, and creamy sauce topped with golden biscuits baked until bubbling.",
     servings: 6,
     preptime: "15 min",
@@ -668,7 +668,7 @@ export const CORE_RECIPES = [
   {
     id: "homemade-pita",
     title: "Homemade Pita Bread",
-    category: "Sides",
+    category: "Soups, Sides & Appetizers",
     description: "Soft, puffy homemade pita cooked in a cast iron skillet — essential for falafel and hummus.",
     servings: 8,
     preptime: "15 min",
@@ -695,7 +695,7 @@ export const CORE_RECIPES = [
   {
     id: "instant-pot-cheddar-grits",
     title: "Instant Pot Cheddar Grits",
-    category: "Sides",
+    category: "Soups, Sides & Appetizers",
     description: "Creamy stone-ground grits cooked under pressure with chicken stock, sharp cheddar, and butter.",
     servings: 4,
     preptime: "5 min",
