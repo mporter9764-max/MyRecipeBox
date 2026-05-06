@@ -692,7 +692,7 @@ function MealPlannerTab({ plan, onPlanChange, allRecipes }) {
         <p style={{ color: "var(--text-muted)", fontSize: "13px" }}>Click any day to add meals · Up to {MAX_PER_DAY} per day</p>
       </div>
 
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(7, 1fr)", gap: "8px", marginBottom: "28px" }}>
+    <div style={{ display: "flex", flexDirection: "column", gap: "8px", marginBottom: "28px" }}>
         {DAYS.map(day => {
           const recipes = getDayRecipes(day)
           const active = picking === day
@@ -703,29 +703,52 @@ function MealPlannerTab({ plan, onPlanChange, allRecipes }) {
               borderRadius: "var(--radius)", overflow: "hidden",
               background: recipes.length > 0 ? "var(--bg-hover)" : "var(--bg-card)", transition: "all 0.15s"
             }}>
-              <div style={{ background: active ? "var(--accent)" : "var(--header)", padding: "7px 10px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                <div style={{ fontSize: "10px", color: active ? "white" : "var(--accent-light)", textTransform: "uppercase", letterSpacing: "0.1em" }}>
-                  {day.slice(0, 3)}
+              <div style={{ display: "flex", alignItems: "center", gap: "16px", padding: "10px 16px" }}>
+                {/* Day label */}
+                <div style={{
+                  width: "100px", flexShrink: 0,
+                  fontSize: "13px", fontWeight: "700", fontFamily: "'Playfair Display', serif",
+                  color: active ? "var(--accent)" : "var(--text-primary)"
+                }}>{day}</div>
+
+                {/* Recipes list */}
+                <div style={{ flex: 1, display: "flex", flexWrap: "wrap", gap: "6px", alignItems: "center" }}>
+                  {recipes.length === 0 && (
+                    <span style={{ fontSize: "13px", color: "var(--text-muted)", fontStyle: "italic" }}>No meals planned</span>
+                  )}
+                  {recipes.map((r, idx) => (
+                    <div key={idx} style={{
+                      background: "var(--bg-card)", border: "1px solid var(--border)",
+                      borderRadius: "999px", padding: "4px 10px 4px 12px",
+                      display: "flex", alignItems: "center", gap: "8px"
+                    }}>
+                      <span style={{ fontSize: "13px", color: "var(--text-primary)", fontFamily: "'Playfair Display', serif" }}>{r.title}</span>
+                      <button onClick={() => removeFromDay(day, idx)} style={{
+                        background: "none", border: "none", color: "var(--text-muted)",
+                        fontSize: "14px", cursor: "pointer", padding: 0, lineHeight: 1
+                      }}>✕</button>
+                    </div>
+                  ))}
                 </div>
-                {recipes.length > 0 && (
-                  <button onClick={() => clearDay(day)} style={{ background: "none", border: "none", color: active ? "white" : "var(--accent-light)", fontSize: "11px", cursor: "pointer", padding: 0, lineHeight: 1 }} title="Clear day">✕</button>
-                )}
-              </div>
-              <div style={{ padding: "8px", minHeight: "90px", display: "flex", flexDirection: "column", gap: "5px" }}>
-                {recipes.map((r, idx) => (
-                  <div key={idx} style={{ background: "var(--bg-card)", border: "1px solid var(--border-light)", borderRadius: "6px", padding: "5px 7px", display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: "4px" }}>
-                    <p style={{ fontFamily: "'Playfair Display', serif", fontSize: "11px", color: "var(--text-primary)", margin: 0, lineHeight: "1.3", flex: 1 }}>{r.title}</p>
-                    <button onClick={() => removeFromDay(day, idx)} style={{ background: "none", border: "none", color: "var(--text-muted)", fontSize: "13px", cursor: "pointer", padding: 0, lineHeight: 1, flexShrink: 0 }}>✕</button>
-                  </div>
-                ))}
-                {canAdd && (
-                  <button onClick={() => setPicking(active ? null : day)} style={{
-                    width: "100%", background: "none",
-                    border: recipes.length > 0 ? "1px dashed var(--border)" : "1px dashed var(--border)",
-                    borderRadius: "6px", color: "var(--text-muted)", fontSize: "11px", cursor: "pointer",
-                    padding: "6px 4px", marginTop: recipes.length > 0 ? "2px" : "0"
-                  }}>+ Add</button>
-                )}
+
+                {/* Actions */}
+                <div style={{ display: "flex", gap: "6px", flexShrink: 0, alignItems: "center" }}>
+                  {canAdd && (
+                    <button onClick={() => setPicking(active ? null : day)} style={{
+                      background: active ? "var(--accent)" : "none",
+                      color: active ? "white" : "var(--accent)",
+                      border: "1px solid var(--accent)", borderRadius: "var(--radius-sm)",
+                      fontSize: "12px", padding: "5px 12px", cursor: "pointer", fontFamily: "inherit"
+                    }}>{active ? "Cancel" : "+ Add"}</button>
+                  )}
+                  {recipes.length > 0 && (
+                    <button onClick={() => clearDay(day)} style={{
+                      background: "none", border: "1px solid var(--border)",
+                      color: "var(--text-muted)", borderRadius: "var(--radius-sm)",
+                      fontSize: "12px", padding: "5px 10px", cursor: "pointer", fontFamily: "inherit"
+                    }}>Clear</button>
+                  )}
+                </div>
               </div>
             </div>
           )
